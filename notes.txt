@@ -1,0 +1,5 @@
+Grid : use sass/bootstrap/_bootstrap-grid.scss
+Gutter: removed at sass/bootstrap/_variables.scss line 234
+<a>: removed all style in sass/bootstrap/_normalize.scss lines 108, 109, 120, 121
+<h1> removed margin in sass/bootstrap/_normalize.scss line 51
+
