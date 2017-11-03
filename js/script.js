@@ -11,10 +11,10 @@ const menu = document.querySelector('.menu-competences');
 const items = [...document.querySelectorAll('.item-competences')];
 const itemsLink = [...document.querySelectorAll('.link-competences')]
 const itemsContent = [...document.querySelectorAll('.content-competence')]
-let moved;
 let textContentItemAtTheTopOfTheStack;
 let transitionInSeconds;
 let transitionInMilliSeconds;
+let clickedItemIndex;
 
 /*--------------------------- Functions - callbacks --------------------------*/
 
@@ -38,7 +38,11 @@ function getTheIndexOfTheClickedItem (e) {
     return false;
   }
 
-  console.log(clicked);
+  clickedItemIndex = items.indexOf(clicked.parentElement.parentElement);
+
+  if(clickedItemIndex === 0) {
+    return;
+  }
 
   if (clicked.classList.contains('avenir-dsi')) {
     if (logo.classList.contains('alone') === false) {
@@ -54,47 +58,64 @@ function getTheIndexOfTheClickedItem (e) {
   }
 
   //We return the index we want
-  const clickedItemIndex = items.indexOf(clicked.parentElement.parentElement);
   textContentItemAtTheTopOfTheStack = itemsContent[clickedItemIndex].textContent;
-  transitionInSeconds = 1 / clickedItemIndex;
+  transitionInSeconds = 2 / clickedItemIndex;
   transitionInMilliSeconds = transitionInSeconds * 1000;
-  translateAndFade(repopulateMenu);
+
+  translateAndFade();
 
 }
 
 /*--------------------------- STEP 4 --------------------------*/
 
 
-function translateAndFade() {
-  console.log(`let's translate`)
+function translateAndFade () {
+  let transitionStyle;
+
+  if (clickedItemIndex === 1) {
+    transitionStyle = 'ease-in-out';
+    console.log(transitionStyle)
+  } else if (itemsLink[1].textContent.trim() === textContentItemAtTheTopOfTheStack) {
+    transitionStyle = 'ease-out';
+    console.log(transitionStyle)
+
+  } else if (itemsLink[clickedItemIndex].textContent.trim() === textContentItemAtTheTopOfTheStack){
+    transitionStyle = 'ease-in';
+    console.log(transitionStyle)
+
+  } else {
+    transitionStyle = 'linear';
+    console.log(transitionStyle)
+
+  }
 
   itemsLink.forEach(link => {
     if (itemsLink.indexOf(link) === 0) {
       //We add the fade-out for the first menu-item
       link.style.opacity = 0;
       link.style.transform = `translateY(-25px)`;
-      link.style.transition = `all ${transitionInSeconds}s linear`;
+      link.style.transition = `all ${transitionInSeconds}s ${transitionStyle}`;
     } else if (itemsLink.indexOf(link) === (itemsLink.length - 1)) {
       //We add the fade-in for the last menu-item
       link.firstElementChild.textContent = itemsLink[0].textContent.trim();
       link.style.opacity = 1;
       link.style.transform = `translateY(-25px)`;
-      link.style.transition = `all ${transitionInSeconds}s linear`;
+      link.style.transition = `all ${transitionInSeconds}s ${transitionStyle}`;
     } else {
       //We translate every menu-item one step up
       link.style.transform = `translateY(-25px)`;
-      link.style.transition = `all ${transitionInSeconds}s linear`;
+      link.style.transition = `all ${transitionInSeconds}s ${transitionStyle}`;
     }
   });
-  moved = true;
   window.setTimeout(repopulateMenu, transitionInMilliSeconds);
 }
 
 /*--------------------------- STEP 5 --------------------------*/
 
 
-function repopulateMenu (e) {
-  console.log(`let's repopulate`)
+function repopulateMenu () {
+
+  const start = new Date();
 
   itemsLink.forEach(link => {
     if (itemsLink.indexOf(link) === 0) {
@@ -131,8 +152,11 @@ function repopulateMenu (e) {
       }
     });
 
+  const end = new Date();
+  const timeDiff = end - start;
+
   if (itemsContent[0].textContent != textContentItemAtTheTopOfTheStack) {
-    window.setTimeout(translateAndFade, 100);
+    window.setTimeout(translateAndFade, 20);
   } else {
     return;
   }
@@ -145,9 +169,16 @@ function repopulateMenu (e) {
 
 }
 
+function rollTheMenu (e){
+  getTheIndexOfTheClickedItem(e);
+
+}
+
 
   /*--------------------------- Event listeners --------------------------------*/
 // menu.addEventListener('click', rollTheMenu, true);
-menu.addEventListener('click', getTheIndexOfTheClickedItem, false);
+menu.addEventListener('click', function (e) {
+  rollTheMenu(e);
+});
 
 
