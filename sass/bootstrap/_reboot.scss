@@ -103,7 +103,7 @@ body {
 // margin for easier control within type scales as it avoids margin collapsing.
 h1, h2, h3, h4, h5, h6 {
   margin-top: 0;
-  margin-bottom: .5rem;
+  // margin-bottom: .5rem;
 }
 
 // Reset margins on paragraphs
@@ -112,7 +112,11 @@ h1, h2, h3, h4, h5, h6 {
 // bottom margin to use `rem` units instead of `em`.
 p {
   margin-top: 0;
-  margin-bottom: 1rem;
+  // margin-bottom: 1rem;
+  -webkit-margin-after: 0;
+  -webkit-margin-before: 0;
+  -webkit-margin-start: 0;
+  -webkit-margin-end: 0;
 }
 
 // Abbreviations
@@ -132,7 +136,10 @@ ol,
 ul,
 dl {
   margin-top: 0;
-  margin-bottom: 1rem;
+  // margin-bottom: 1rem;
+  -webkit-padding-start: 0;
+  -webkit-margin-after: 0;
+
 }
 
 ol ol,
@@ -140,6 +147,7 @@ ul ul,
 ol ul,
 ul ol {
   margin-bottom: 0;
+
 }
 
 dt {

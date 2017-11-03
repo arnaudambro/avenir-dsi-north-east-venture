@@ -3,12 +3,16 @@
  * Import this file using the following HTML or equivalent:
  * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
 
-@import "compass/reset";
-@import "compass";
+// @import "compass/reset";
+// @import "compass";
 // @import "grid/grid";
 
 @import "utilities/variables";
 
 @import "modules/base";
+@import "modules/menu";
+@import "modules/banner";
+@import "modules/main-description";
+@import "modules/menu-competences";
 
 
