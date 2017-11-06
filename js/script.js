@@ -5,15 +5,20 @@ const logo = document.querySelector('.banner-company-img');
 const bannerCompetenceName = document.querySelector('.banner-competence-name');
 
 const competenceAvenirDSI = document.querySelector('.avenir-dsi');
-const translateYDistance = competenceAvenirDSI.offsetHeight;
+const translateYDistance = competenceAvenirDSI.parentElement.parentElement.scrollHeight;
+const buttonArrowSize = competenceAvenirDSI.nextElementSibling.width;
 
 const menu = document.querySelector('.menu-competences');
 const items = [...document.querySelectorAll('.item-competences')];
-const itemsLink = [...document.querySelectorAll('.link-competences')]
-const itemsContent = [...document.querySelectorAll('.content-competence')]
+let itemsLink = [...document.querySelectorAll('.link-competences')];
+let itemsContent = [...document.querySelectorAll('.content-competence')];
+
+const menuItemsNumber = 5;
 let textContentItemAtTheTopOfTheStack;
-let transitionInSeconds;
-let transitionInMilliSeconds;
+const transitionInSeconds = 0.5;
+const transitionInMilliSeconds = transitionInSeconds * 1000;
+let transitionPerUnitInSeconds;
+let transitionPerUnitInMilliSeconds;
 let clickedItemIndex;
 
 /*--------------------------- Functions - callbacks --------------------------*/
@@ -25,6 +30,7 @@ function getTheIndexOfTheClickedItem (e) {
   //Variable
   let clicked;
 
+
   //We select the <p> only
   if (e.target.tagName == "LI") {
     clicked = e.target.firstElementChild.firstElementChild;
@@ -35,7 +41,7 @@ function getTheIndexOfTheClickedItem (e) {
   } else if (e.target.tagName == "IMG") {
     clicked = e.target.parentElement.firstElementChild;
   } else {
-    return false;
+    return;
   }
 
   clickedItemIndex = items.indexOf(clicked.parentElement.parentElement);
@@ -59,55 +65,58 @@ function getTheIndexOfTheClickedItem (e) {
 
   //We return the index we want
   textContentItemAtTheTopOfTheStack = itemsContent[clickedItemIndex].textContent;
-  transitionInSeconds = 2 / clickedItemIndex;
-  transitionInMilliSeconds = transitionInSeconds * 1000;
+  transitionPerUnitInSeconds = transitionInSeconds / clickedItemIndex;
+  transitionPerUnitInMilliSeconds = transitionInMilliSeconds / clickedItemIndex;
 
   translateAndFade();
-
 }
 
 /*--------------------------- STEP 4 --------------------------*/
 
 
 function translateAndFade () {
-  let transitionStyle;
-
-  if (clickedItemIndex === 1) {
-    transitionStyle = 'ease-in-out';
-    console.log(transitionStyle)
-  } else if (itemsLink[1].textContent.trim() === textContentItemAtTheTopOfTheStack) {
-    transitionStyle = 'ease-out';
-    console.log(transitionStyle)
-
-  } else if (itemsLink[clickedItemIndex].textContent.trim() === textContentItemAtTheTopOfTheStack){
-    transitionStyle = 'ease-in';
-    console.log(transitionStyle)
-
-  } else {
-    transitionStyle = 'linear';
-    console.log(transitionStyle)
-
-  }
-
   itemsLink.forEach(link => {
-    if (itemsLink.indexOf(link) === 0) {
-      //We add the fade-out for the first menu-item
-      link.style.opacity = 0;
-      link.style.transform = `translateY(-25px)`;
-      link.style.transition = `all ${transitionInSeconds}s ${transitionStyle}`;
-    } else if (itemsLink.indexOf(link) === (itemsLink.length - 1)) {
-      //We add the fade-in for the last menu-item
-      link.firstElementChild.textContent = itemsLink[0].textContent.trim();
-      link.style.opacity = 1;
-      link.style.transform = `translateY(-25px)`;
-      link.style.transition = `all ${transitionInSeconds}s ${transitionStyle}`;
-    } else {
-      //We translate every menu-item one step up
-      link.style.transform = `translateY(-25px)`;
-      link.style.transition = `all ${transitionInSeconds}s ${transitionStyle}`;
+    if ((itemsLink.indexOf(link) >= menuItemsNumber) && (itemsLink.indexOf(link) < (menuItemsNumber + clickedItemIndex))) {
+      link.parentElement.style = "";
     }
   });
-  window.setTimeout(repopulateMenu, transitionInMilliSeconds);
+
+  window.setTimeout( () => {
+    itemsLink.forEach(link => {
+
+    //We translate everything
+    link.style.transform = `translateY(-${translateYDistance * clickedItemIndex}px)`;
+    link.style.transition = `transform ${transitionInSeconds}s`;
+
+    if (itemsLink.indexOf(link) === clickedItemIndex) {
+      link.lastElementChild.style.transform = `translateX(${buttonArrowSize}px)`;
+      link.lastElementChild.style.opacity = 0;
+      link.firstElementChild.style.transform = `translateX(0)`;
+    }
+
+    //We fade-out the items before the one clicked
+    window.setTimeout( () => {
+      if (itemsLink.indexOf(link) < clickedItemIndex) {
+        transitionStyle = 'ease-out';
+        link.style.opacity = 0;
+        link.style.transition = `opacity ${transitionPerUnitInSeconds}s ${transitionStyle}, transform ${transitionInSeconds}s`;
+      }
+    }, itemsLink.indexOf(link) * transitionPerUnitInMilliSeconds);
+
+    //We fade-in the items after the one clicked
+    window.setTimeout( () => {
+      if ((itemsLink.indexOf(link) >= menuItemsNumber) && (itemsLink.indexOf(link) < (menuItemsNumber + clickedItemIndex))) {
+        link.firstElementChild.textContent = itemsLink[itemsLink.indexOf(link) - menuItemsNumber].textContent.trim();
+        transitionStyle = 'ease-in';
+        link.style.opacity = 1;
+        link.style.transition = `opacity ${transitionPerUnitInSeconds}s ${transitionStyle}, transform ${transitionInSeconds}s`;
+      }
+    }, (itemsLink.indexOf(link) - menuItemsNumber) * transitionPerUnitInMilliSeconds);
+
+  });
+  });
+
+  repopulateMenu();
 }
 
 /*--------------------------- STEP 5 --------------------------*/
@@ -115,70 +124,54 @@ function translateAndFade () {
 
 function repopulateMenu () {
 
-  const start = new Date();
-
-  itemsLink.forEach(link => {
-    if (itemsLink.indexOf(link) === 0) {
+  window.setTimeout( () => {
+    itemsLink.forEach(link => {
+      link.style.transform = ``;
+      link.style.transition = ``;
+      link.lastElementChild.style = ``;
+      link.firstElementChild.style = ``;
+      if (itemsLink.indexOf(link) < menuItemsNumber) {
         //We remove the fade-out for the first menu-item
+        console.log('ah ouais ?')
         link.style.opacity = 1;
-        link.style.transform = ``;
-        link.style.transition = ``;
-      } else if (itemsLink.indexOf(link) === (itemsLink.length - 1)) {
-        //We remove the fade-in for the last menu-item
-        link.firstElementChild.textContent = itemsLink[0].textContent.trim();
-        link.style.opacity = 0;
-        link.style.transform = ``;
-        link.style.transition = ``;
       } else {
         //We remove the translation of all of them
-        link.style.transform = ``;
-        link.style.transition = ``;
+        link.style.opacity = 0;
+        link.parentElement.style.display = 'none';
       }
     });
 
-  itemsContent.forEach(item => {
-      // We put back emptiness for the last menu-item
-      if (itemsContent.indexOf(item) === (itemsContent.length - 1)) {
-        item.textContent = '';
-      } else {
-        //We replace the content of the item by the one below it
-        item.textContent = itemsContent[itemsContent.indexOf(item)+1].textContent.trim();
-      }
-      //We put avenir-dsi class where it needs to be
-      if ((item.textContent === 'Avenir DSI') && !(item.classList.contains('avenir-dsi'))) {
-        item.classList.add('avenir-dsi');
-      } else if (!(item.textContent === 'Avenir DSI') && (item.classList.contains('avenir-dsi'))) {
-        item.classList.remove('avenir-dsi');
-      }
-    });
+    itemsContent.forEach(item => {
+            // We put back emptiness for the last menu-item
+            if (itemsContent.indexOf(item) === 0) {
+              item.textContent = itemsContent[clickedItemIndex].textContent.trim();
+            } else if (itemsContent.indexOf(item) < menuItemsNumber ){
+              //We replace the content of the item by the one below it
+              item.textContent = itemsContent[itemsContent.indexOf(item)+clickedItemIndex].textContent.trim();
+            } else {
+              item.textContent = '';
+            }
+            //We put avenir-dsi class where it needs to be
+            if ((item.textContent === 'Avenir DSI') && !(item.classList.contains('avenir-dsi'))) {
+              item.classList.add('avenir-dsi');
+            } else if (!(item.textContent === 'Avenir DSI') && (item.classList.contains('avenir-dsi'))) {
+              item.classList.remove('avenir-dsi');
+            }
+          });
 
-  const end = new Date();
-  const timeDiff = end - start;
+  }, transitionInMilliSeconds + 100);
 
-  if (itemsContent[0].textContent != textContentItemAtTheTopOfTheStack) {
-    window.setTimeout(translateAndFade, 20);
-  } else {
-    return;
-  }
 
-  // if (itemsContent[0].textContent != textContentItemAtTheTopOfTheStack) {
-  //   window.setTimeout(translateAndFade, 100);
-  // } else {
-  //   return;
-  // }
-
-}
-
-function rollTheMenu (e){
-  getTheIndexOfTheClickedItem(e);
 
 }
 
 
-  /*--------------------------- Event listeners --------------------------------*/
+
+
+/*--------------------------- Event listeners --------------------------------*/
 // menu.addEventListener('click', rollTheMenu, true);
 menu.addEventListener('click', function (e) {
-  rollTheMenu(e);
+  getTheIndexOfTheClickedItem(e);
 });
 
 

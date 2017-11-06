@@ -399,6 +399,7 @@ a.main-description-button:hover > .svg-arrow {
 /* line 2, ../sass/modules/_menu-competences.scss */
 .menu-competences {
   list-style: none;
+  border: 1px solid #000;
 }
 
 /* line 9, ../sass/modules/_menu-competences.scss */
@@ -437,6 +438,7 @@ a.main-description-button:hover > .svg-arrow {
   text-transform: uppercase;
   letter-spacing: 0.5px;
   text-align: right;
+  border: 1px solid #000;
 }
 
 /* line 48, ../sass/modules/_menu-competences.scss */
