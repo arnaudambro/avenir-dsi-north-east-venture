@@ -21,6 +21,7 @@ let transitionPerUnitInSeconds;
 let transitionPerUnitInMilliSeconds;
 let clickedItemIndex;
 
+
 /*--------------------------- Functions - callbacks --------------------------*/
 
 
@@ -44,11 +45,7 @@ function getTheIndexOfTheClickedItem (e) {
     return;
   }
 
-  clickedItemIndex = items.indexOf(clicked.parentElement.parentElement);
-
-  if(clickedItemIndex === 0) {
-    return;
-  }
+  console.log(clicked);
 
   if (clicked.classList.contains('avenir-dsi')) {
     if (logo.classList.contains('alone') === false) {
@@ -64,11 +61,13 @@ function getTheIndexOfTheClickedItem (e) {
   }
 
   //We return the index we want
+  const clickedItemIndex = items.indexOf(clicked.parentElement.parentElement);
   textContentItemAtTheTopOfTheStack = itemsContent[clickedItemIndex].textContent;
   transitionPerUnitInSeconds = transitionInSeconds / clickedItemIndex;
   transitionPerUnitInMilliSeconds = transitionInMilliSeconds / clickedItemIndex;
 
   translateAndFade();
+
 }
 
 /*--------------------------- STEP 4 --------------------------*/
@@ -117,6 +116,7 @@ function translateAndFade () {
   });
 
   repopulateMenu();
+
 }
 
 /*--------------------------- STEP 5 --------------------------*/
@@ -131,6 +131,7 @@ function repopulateMenu () {
       link.lastElementChild.style = ``;
       link.firstElementChild.style = ``;
       if (itemsLink.indexOf(link) < menuItemsNumber) {
+
         //We remove the fade-out for the first menu-item
         console.log('ah ouais ?')
         link.style.opacity = 1;
@@ -161,15 +162,15 @@ function repopulateMenu () {
 
   }, transitionInMilliSeconds + 100);
 
-
-
 }
-
-
 
 
 /*--------------------------- Event listeners --------------------------------*/
 // menu.addEventListener('click', rollTheMenu, true);
+
 menu.addEventListener('click', function (e) {
   getTheIndexOfTheClickedItem(e);
 });
+
+
+
