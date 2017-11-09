@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr-FR">
 <head>
   <title>Avenir-DSI - modèle North-East</title>
   <!-- Header initialized with /header-footer.js -->
@@ -26,24 +26,25 @@
 
 <body>
 
+  <div class="bg"></div>
   <!-- Navbar -->
   <nav class="menu">
     <ul class="ul-horizontal">
-      <li class="menu-item menu-item-1"><a href="#">Dépannage</a></li>
-      <li class="menu-item menu-item-2"><a href="#">Agences</a></li>
-      <li class="menu-item menu-item-3"><a href="#">Contact</a></li>
+      <li class="menu-item menu-item-1"><a href="#"><p>Dépannage</p></a></li>
+      <li class="menu-item menu-item-2"><a href="#"><p>Agences</p></a></li>
+      <li class="menu-item menu-item-3"><a href="#"><p>Contact</p></a></li>
     </ul>
   </nav>
 
   <!-- Banner -->
-  <div class="banner">
+  <div class="banner" data-menu-position="0">
     <!-- Logo -->
     <div class="banner-image">
-      <img src="/img/Logo+nom.svg" class="banner-company-img alone">
+      <img src="/img/Logo+nom-black.svg" id="banner-company-img-id" class="svg banner-company-img">
     </div>
     <!-- Compétence -->
     <div class="banner-text">
-      <h1 class="banner-competence-name without">Cloud</h1>
+      <h1 class="banner-competence-name" ></h1>
     </div>
   </div>
 
@@ -73,39 +74,39 @@
 
    <!-- À droite, la liste -->
    <ul class="menu-competences">
-<!--     <li class="item-competences" >
-      <a href="#" class="link-competences">
-        <p class="content-competence" data-menu-position="0"></p>
-        <img src="/img/arrow2.svg" class="svg-arrow"></img>
-      </a>
-    </li> -->
     <li class="item-competences" >
       <a href="#" class="link-competences">
-        <p class="content-competence avenir-dsi" data-menu-position="1">Avenir DSI</p>
+        <p class="content-competence avenir-dsi" data-menu-position="0"></p>
         <img src="/img/arrow2.svg" class="svg-arrow"></img>
       </a>
     </li>
     <li class="item-competences" >
       <a href="#" class="link-competences">
-        <p class="content-competence" data-menu-position="2">Urgence & Depannage</p>
+        <p class="content-competence" data-menu-position="1"></p>
         <img src="/img/arrow2.svg" class="svg-arrow"></img>
       </a>
     </li>
     <li class="item-competences" >
       <a href="#" class="link-competences">
-        <p class="content-competence" data-menu-position="3">Achat & Location</p>
+        <p class="content-competence" data-menu-position="2"></p>
         <img src="/img/arrow2.svg" class="svg-arrow"></img>
       </a>
     </li>
     <li class="item-competences" >
       <a href="#" class="link-competences">
-        <p class="content-competence" data-menu-position="4">Infogérance</p>
+        <p class="content-competence" data-menu-position="3"></p>
         <img src="/img/arrow2.svg" class="svg-arrow"></img>
       </a>
     </li>
     <li class="item-competences" >
       <a href="#" class="link-competences">
-        <p class="content-competence" data-menu-position="5">GED</p>
+        <p class="content-competence" data-menu-position="4"></p>
+        <img src="/img/arrow2.svg" class="svg-arrow"></img>
+      </a>
+    </li>
+    <li class="item-competences" style="display: none" >
+      <a href="#" class="link-competences" style="opacity:0" >
+        <p class="content-competence" data-menu-position="5"></p>
         <img src="/img/arrow2.svg" class="svg-arrow"></img>
       </a>
     </li>
@@ -124,12 +125,6 @@
     <li class="item-competences" style="display: none" >
       <a href="#" class="link-competences" style="opacity:0" >
         <p class="content-competence" data-menu-position="8"></p>
-        <img src="/img/arrow2.svg" class="svg-arrow"></img>
-      </a>
-    </li>
-    <li class="item-competences" style="display: none" >
-      <a href="#" class="link-competences" style="opacity:0" >
-        <p class="content-competence" data-menu-position="9"></p>
         <img src="/img/arrow2.svg" class="svg-arrow"></img>
       </a>
     </li>
@@ -159,16 +154,18 @@
 <!-- Javascript -->
 
 <!-- JQuery (for Bootstrap) -->
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script> -->
 <!-- Popper.js, used for bootstrap -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script> -->
 <!-- Bootstrap v4 alpha-->
-<script type="text/javascript" src="/js/bootstrap.min.js"></script>
+<!-- <script type="text/javascript" src="/js/bootstrap.min.js"></script> -->
 
 <!-- Fontawesome -->
 <script type="text/javascript" src="https://use.fontawesome.com/45d80bbe59.js"></script>
 <!-- Custom JS -->
 <script type="text/javascript" src="/js/script.js"></script>
+<!-- <script type="text/javascript" src="/js/transform-svg.js"></script> -->
+
 
 
 
