@@ -16,7 +16,7 @@
   box-sizing: border-box;
 }
 
-/* line 3, ../sass/modules/_base.scss */
+/* line 6, ../sass/modules/_base.scss */
 html, body {
   margin: 0;
   padding: 0;
@@ -64,7 +64,7 @@ html, body {
 /* line 28, ../sass/modules/_menu.scss */
 .ul-horizontal {
   width: 100%;
-  max-width: 400px;
+  max-width: 250px;
   display: flex;
   justify-content: space-between;
   font-size: 0.75em;
@@ -286,13 +286,9 @@ html, body {
   opacity: 0.5;
 }
 
-/* line 185, ../sass/modules/_banner.scss */
-.banner-separation {
-  height: 40px;
-}
-
 /* line 1, ../sass/modules/_main-description.scss */
 .main-content {
+  padding-top: 40px;
   padding-left: 33px;
   padding-right: 33px;
   display: flex;
@@ -310,7 +306,6 @@ html, body {
   /* line 1, ../sass/modules/_main-description.scss */
   .main-content {
     padding-left: 80px;
-    padding-right: 80px;
   }
 }
 @media only screen and (min-width: 1200px) {
@@ -323,12 +318,23 @@ html, body {
 
 /* line 24, ../sass/modules/_main-description.scss */
 .main-description-content {
-  max-width: 500px;
+  max-width: 50vw;
+  overflow-y: auto;
+  height: 100%;
 }
 
-/* line 31, ../sass/modules/_main-description.scss */
+/* line 32, ../sass/modules/_main-description.scss */
+.main-description-content-container {
+  position: relative;
+  padding-top: 26.66667px;
+  padding-bottom: 26.66667px;
+  overflow: hidden;
+  height: 30vh;
+}
+
+/* line 42, ../sass/modules/_main-description.scss */
 a.main-description-button {
-  margin-top: 50px;
+  margin-top: 10px;
   height: 45px;
   width: 150px;
   display: flex;
@@ -341,31 +347,32 @@ a.main-description-button {
   letter-spacing: 0.5px;
   vertical-align: middle;
   border: none;
+  z-index: 1000;
 }
-/* line 54, ../sass/modules/_main-description.scss */
+/* line 67, ../sass/modules/_main-description.scss */
 a.main-description-button > * {
   transition: all 0.3s;
 }
-/* line 58, ../sass/modules/_main-description.scss */
+/* line 71, ../sass/modules/_main-description.scss */
 a.main-description-button > p {
   transform: translateX(6px);
 }
-/* line 62, ../sass/modules/_main-description.scss */
+/* line 75, ../sass/modules/_main-description.scss */
 a.main-description-button > svg.svg-arrow {
   height: 12px;
   width: 12px;
   transform: translateX(12px);
   opacity: 0;
 }
-/* line 69, ../sass/modules/_main-description.scss */
+/* line 82, ../sass/modules/_main-description.scss */
 a.main-description-button:hover {
   text-decoration: none;
 }
-/* line 71, ../sass/modules/_main-description.scss */
+/* line 84, ../sass/modules/_main-description.scss */
 a.main-description-button:hover > p {
   transform: translateX(-4px);
 }
-/* line 74, ../sass/modules/_main-description.scss */
+/* line 87, ../sass/modules/_main-description.scss */
 a.main-description-button:hover > .svg-arrow {
   transform: translateX(4px);
   opacity: 1;

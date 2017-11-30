@@ -12,6 +12,8 @@ const menuDepannage = document.querySelector('.menu-item-1').firstElementChild.f
 const buttonMoreInfos = document.querySelector('.main-description-button');
 const menu = document.querySelector('.menu-competences');
 const lis = [...document.querySelectorAll('.item-competences')];
+const mainContent = document.querySelector('.main-description-content');
+
 let links = [...document.querySelectorAll('.link-competences')];
 let itemsContent = [...document.querySelectorAll('.content-competence')];
 
@@ -27,7 +29,7 @@ const colorPurpleDSI = `rgba(20,85,180,1.00)`;
 const competences = [
 {
   menuPosition: 0,
-  menuContent: `Avenir DSI`,
+  menuContent: `Qui suis-je`,
   logoURL: `/img/Logo+nom-purple.svg`,
   bannerContent: ``,
   isAlone: true,
@@ -35,56 +37,61 @@ const competences = [
   textColor: colorPurpleDSI,
   depannageColor: colorRed,
   btnBackgroundColor: colorPurpleDSI,
-  btnTextColor: colorWhite
+  btnTextColor: colorWhite,
+  content: `Ingénieur ESTP, formation généraliste avec spécialité BTP, j'ai travaillé plus de 3,5 ans chez Bouygues Travaux Publics à Hong Kong dans l'industrie des tunneliers, puis presque deux années en France en tant que responsable du développement commercial d'un bureau d'études spécialisé dans le BIM. Plus ferru de code que de béton, j'ai décidé en septembre 2017 de devnir développeur et de faire de ma passion mon métier. Les technologies dans lesquelles j'ai choisi de me spécialiser sont tournées autour de Javascript, langage en constante évolution et de plus en plus utilisé autant dans le front-end que le back-end.`
 },
 {
   menuPosition: 1,
-  menuContent: `Urgence & Dépannage`,
+  menuContent: `Javascript`,
   logoURL: `/img/Logo+nom-purple.svg`,
-  bannerContent: `Urgence & Depannage`,
+  bannerContent: `Javascript`,
   isAlone: true,
   backgroundProperty: `url(/img/depannage_banner_blue.png) center / cover no-repeat`,
   textColor: colorPurpleDSI,
   depannageColor: colorWhite,
   btnBackgroundColor: colorPurpleDSI,
-  btnTextColor: colorWhite
+  btnTextColor: colorWhite,
+  content: `Javascript est souvent resté un langage utilisé pour gérer les animations en front-end, complétant le duo HTML - CSS. Très instable selon les navigateurs utilisés, il s'est depuis quelques années bien développé, assez pour que des frameworks sérieux soient utilisés, tels React ou Node.`
 },
 {
   menuPosition: 2,
-  menuContent: `Achat & Location`,
+  menuContent: `React JS`,
   logoURL: `/img/Logo+nom-black.svg`,
-  bannerContent: `Achat & Location`,
+  bannerContent: `React JS`,
   isAlone: true,
   backgroundProperty: `url(/img/impression_banner-red.png) center / cover no-repeat`,
   textColor: colorBlack,
   depannageColor: colorWhite,
   btnBackgroundColor: colorBlack,
-  btnTextColor: colorWhite
+  btnTextColor: colorWhite,
+  content: `React JS est un framework Javascript front-end développé par Facebook, et open-source depuis quelques années. Il permet de faire des sites très réactifs pour lesquelles le temps de chargement est presque instantané. Il permet aussi, Facebook en est un très bon exemple, d'avoir des mises-à-jour instantanées de différents modules d'une même page lorsqu'un élément est modifié (même en base de donnée) sans besoin de recharger la page, pour une utilisation fluide et agréable de l'application Web.`
 },
 {
   menuPosition: 3,
-  menuContent: `Infogérance`,
+  menuContent: `React Native`,
   logoURL: `/img/Logo+nom-white.svg`,
-  bannerContent: `Infogerance`,
+  bannerContent: `React Native`,
   isAlone: true,
   backgroundProperty: `url(/img/cloud_banner-black.png) center / cover no-repeat`,
   textColor: colorWhite,
   depannageColor: colorRed,
   btnBackgroundColor: colorBlack,
-  btnTextColor: colorWhite
+  btnTextColor: colorWhite,
+  content: `React Native est une variante de React JS, qui permet de coder en Javascript et React directement pour construire des applications mobiles. En effet, le code React Native est compilé en langage natif Android ou iOS pour assurer une compabilité optimale avec les smartphones tout en conservant les avantages du framework React.`
 },
 {
   menuPosition: 4,
-  menuContent: `GED`,
+  menuContent: `Node.js`,
   logoURL: `/img/Logo+nom-black.svg`,
-  bannerContent: `GED`,
+  bannerContent: `Node.js`,
   isAlone: true,
   backgroundProperty: `url(/img/ged_banner-green.png) center / cover no-repeat`,
   textColor: colorBlack,
   depannageColor: colorPurpleDSI,
   btnBackgroundColor: colorBlack,
-  btnTextColor: colorWhite
-},
+  btnTextColor: colorWhite,
+  content: `Node.js est un framework permettant de gérer le back-end em langage Javascript, là où il était nécessaire d'utiliser auparavant un langage complémentaire comme le PHP. Ainsi, maîtriser Javascript et ces différents frameworks m'a permis d'acquérir la compétence de <strong>développeur full-stack</strong>, au service de mes clients.`
+}
 ];
 
 
@@ -102,6 +109,7 @@ const backgroundTranslationDistance = 15;
 let fakeBanner;
 let fakeBannerLogo;
 let fakeBannerCompetenceName;
+let fakeMainContent;
 
 
 
@@ -141,6 +149,10 @@ function init (initialPosition) {
     bannerLogo.firstElementChild.classList.remove('alone');
     bannerCompetenceName.classList.remove('without');
   }
+
+  /*                 TEXT CONTENT            */
+  mainContent.firstElementChild.textContent = competences.filter(competence => competence.menuPosition == clickedMenuPos)[0].content;
+
 
   /*                 BACKGROUND                    */
   background.style.background = competences.filter(competence => competence.menuPosition == clickedMenuPos)[0].backgroundProperty;
@@ -315,6 +327,15 @@ function buildFakeDOM () {
   fakeBannerLogo.firstElementChild.src = competences.filter(competence => competence.menuPosition == clickedMenuPos)[0].logoURL;
   fakeBannerLogo.style.opacity = 1;
 
+  fakeMainContent = mainContent.cloneNode(true);
+  fakeMainContent.firstElementChild.textContent = competences.filter(competence => competence.menuPosition == clickedMenuPos)[0].content;
+  fakeMainContent.style.position = `absolute`
+  fakeMainContent.style.marginLeft = window.getComputedStyle(mainContent).getPropertyValue('margin-left');
+  fakeMainContent.style.marginRight = window.getComputedStyle(mainContent).getPropertyValue('margin-right');
+  fakeMainContent.style.top = `${window.getComputedStyle(document.querySelector('.main-description-content-container')).getPropertyValue('padding-top')}`;
+  fakeMainContent.style.width = `${mainContent.getBoundingClientRect().width}px`;
+  fakeMainContent.style.opacity = 0;
+
 
   translateAndFadeBanner();
   translateAndFadeBackground();
@@ -325,11 +346,16 @@ function translateAndFadeBanner () {
   banner.dataset.menuPosition = clickedMenuPos;
 
   const bannerTranslationDistance = banner.getBoundingClientRect().height;
+  const mainContentTranslationDistance = 150;
 
   fakeBannerCompetenceName.style.transform = `translateY(${bannerTranslationDistance / 1.15}px)`;
   fakeBannerLogo.style.transform = `translateY(${bannerTranslationDistance / 1.15}px)`;
+  fakeMainContent.style.transform = `translateY(${mainContentTranslationDistance}px)`;
 
   document.body.append(fakeBanner);
+  document.querySelector('.main-description-content-container').appendChild(fakeMainContent);
+
+  // debugger
 
   //If we click on avenir-DSI
   if (clickedMenuPos == 0) {
@@ -352,6 +378,17 @@ function translateAndFadeBanner () {
       bannerCompetenceName.style.transform = `translateY(-${bannerTranslationDistance}px)`;
       bannerCompetenceName.style.opacity = 0.5;
       bannerCompetenceName.style.transition = `all ${transitionInSeconds}s ease-in-out`;
+
+      //Translation for the mainContent
+      fakeMainContent.style.opacity = 1;
+      fakeMainContent.firstElementChild.textContent = competences.filter(competence => competence.menuPosition == clickedMenuPos)[0].content;
+      fakeMainContent.style.transform = `translateY(0)`;
+      fakeMainContent.style.transition = `all ${transitionInSeconds}s ease-in-out`;
+
+      mainContent.style.transform = `translateY(-${mainContentTranslationDistance}px)`;
+      mainContent.style.opacity = 0;
+      mainContent.style.transition = `all ${transitionInSeconds}s ease-in-out`;
+
     });
     window.setTimeout(() => {
       //All text
@@ -381,8 +418,14 @@ function translateAndFadeBanner () {
       bannerLogo.style.transition = ``;
       bannerLogo.firstElementChild.src = competences.filter(competence => competence.menuPosition == clickedMenuPos)[0].logoURL;
 
+      mainContent.style.transform = ``;
+      mainContent.style.opacity = 1;
+      mainContent.style.transition = ``;
+      mainContent.firstElementChild.textContent = competences.filter(competence => competence.menuPosition == clickedMenuPos)[0].content;
+
       //Remove the fake banner
       document.body.removeChild(fakeBanner);
+      document.querySelector('.main-description-content-container').removeChild(fakeMainContent);
     }, transitionInMilliSeconds);
   }
   //All the other menus
@@ -403,11 +446,25 @@ function translateAndFadeBanner () {
         bannerLogo.style.transform = `translateY(-${bannerTranslationDistance}px)`;
         bannerLogo.style.opacity = 0.5;
         bannerLogo.style.transition = `all ${transitionInSeconds}s ease-in-out`;
+
+        //Translation for the mainContent
+        fakeMainContent.style.opacity = 1;
+        fakeMainContent.firstElementChild.textContent = competences.filter(competence => competence.menuPosition == clickedMenuPos)[0].content;
+        fakeMainContent.style.transform = `translateY(0)`;
+        fakeMainContent.style.transition = `all ${transitionInSeconds}s ease-in-out`;
+
+        mainContent.style.transform = `translateY(-${mainContentTranslationDistance}px)`;
+        mainContent.style.opacity = 0;
+        mainContent.style.transition = `all ${transitionInSeconds}s ease-in-out`;
       }
 
       fakeBannerLogo.style.transform = ``;
       fakeBannerLogo.style.zIndex = `1`;
       bannerLogo.style.zIndex = `2`;
+
+      fakeMainContent.style.transform = ``;
+      fakeMainContent.style.zIndex = `1`;
+      mainContent.style.zIndex = `2`;
 
       //Translate the banner
       fakeBannerCompetenceName.style.opacity = 1;
@@ -417,6 +474,16 @@ function translateAndFadeBanner () {
       bannerCompetenceName.style.transform = `translateY(-${bannerTranslationDistance}px)`;
       bannerCompetenceName.style.opacity = 0.5;
       bannerCompetenceName.style.transition = `all ${transitionInSeconds}s ease-in-out`;
+
+      //Translation for the mainContent
+      fakeMainContent.style.opacity = 1;
+      fakeMainContent.firstElementChild.textContent = competences.filter(competence => competence.menuPosition == clickedMenuPos)[0].content;
+      fakeMainContent.style.transform = `translateY(0)`;
+      fakeMainContent.style.transition = `all ${transitionInSeconds}s ease-in-out`;
+
+      mainContent.style.transform = `translateY(-${mainContentTranslationDistance}px)`;
+      mainContent.style.opacity = 0;
+      mainContent.style.transition = `all ${transitionInSeconds}s ease-in-out`;
     });
 
     // Once the background is in position
@@ -456,6 +523,7 @@ function translateAndFadeBanner () {
       //Replace the banner by what it should be replaced by
       bannerCompetenceName.firstElementChild.textContent = fakeBannerCompetenceName.firstElementChild.textContent.trim();
       bannerLogo.firstElementChild.src = fakeBannerLogo.firstElementChild.src;
+      mainContent.firstElementChild.textContent = competences.filter(competence => competence.menuPosition == clickedMenuPos)[0].content;
 
       //Re-init all the transitions parameters
       bannerLogo.style.transform = ``;
@@ -468,8 +536,16 @@ function translateAndFadeBanner () {
       bannerCompetenceName.style.color = ``
       bannerCompetenceName.firstElementChild.style.color = fakeBannerCompetenceName.firstElementChild.style.color
 
+
+      mainContent.style.transform = ``;
+      mainContent.style.opacity = 1;
+      mainContent.style.transition = ``;
+      mainContent.firstElementChild.textContent = competences.filter(competence => competence.menuPosition == clickedMenuPos)[0].content;
+
       //Delete the fake banner
       document.body.removeChild(fakeBanner);
+      document.querySelector('.main-description-content-container').removeChild(fakeMainContent);
+
     }, transitionInMilliSeconds);
   }
 }

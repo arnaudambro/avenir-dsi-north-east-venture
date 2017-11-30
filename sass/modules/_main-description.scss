@@ -1,4 +1,5 @@
 .main-content {
+  padding-top: $banner-separation-height;
   padding-left: $menu-padding-left-right-xs;
   padding-right: $menu-padding-left-right-xs;
   @media only screen and (min-width: $md-width) {
@@ -7,8 +8,7 @@
   }
   @media only screen and (min-width: $lg-width) {
     padding-left: $menu-padding-left-right-lg;
-    padding-right: $menu-padding-left-right-lg;
-  }
+   }
   @media only screen and (min-width: $xl-width) {
     padding-left: $menu-padding-left-right-xl;
     padding-right: $menu-padding-left-right-xl;
@@ -22,15 +22,26 @@
 }
 
 .main-description-content {
-  max-width: 500px;
+  max-width: 50vw;
+  overflow-y: auto;
+  height: 100%;
 }
 
-div.main-description-button {
+
+
+.main-description-content-container {
+  position: relative;
+  padding-top: $banner-separation-height * 2 / 3;
+  padding-bottom: $banner-separation-height * 2 / 3;
+  overflow: hidden;
+  height: 30vh;
+
+
 }
 
 a.main-description-button {
 
-  margin-top: 50px;
+  margin-top: 10px;
   height: 45px;
   width: 150px;
 
@@ -50,6 +61,8 @@ a.main-description-button {
 
   // background-color: $color-avenir-dsi;
   border: none;
+
+  z-index: 1000;
 
   > * {
     transition: all 0.3s;
